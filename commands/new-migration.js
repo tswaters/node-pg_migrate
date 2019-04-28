@@ -2,13 +2,13 @@
 
 const { promisify } = require('util')
 const { writeFile: _writeFile, readFile: _readFile } = require('fs')
-const path = require('path')
+const { join, relative } = require('path')
 const logger = require('../lib/logger')
 
 const writeFile = promisify(_writeFile)
 const readFile = promisify(_readFile)
 
-const default_path = path.join(__dirname, '..', 'templates')
+const default_path = join(__dirname, '..', 'templates')
 let migration_template = ''
 let rollback_template = ''
 let test_template = ''
@@ -42,8 +42,8 @@ exports.handler = async ({ name }) => {
 }
 
 async function get_template_fallback({ templateDir }, template) {
-  const definedPath = path.join(templateDir, template)
-  const defaultPath = path.join(default_path, template)
+  const definedPath = join(templateDir, template)
+  const defaultPath = join(default_path, template)
   try {
     return readFile(definedPath, 'utf-8')
   } catch (err) {
@@ -53,7 +53,7 @@ async function get_template_fallback({ templateDir }, template) {
 }
 
 async function make_file(migration_path, file_name, template) {
-  const file_path = path.join(process.cwd(), 'db', migration_path, file_name)
-  logger.info(`Creating file: ${file_path}`)
+  const file_path = join(process.cwd(), 'db', migration_path, file_name)
+  logger.info(`Creating file: ${relative(process.cwd(), file_path)}`)
   await writeFile(file_path, template)
 }

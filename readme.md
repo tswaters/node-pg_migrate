@@ -80,6 +80,10 @@ Creating directory: ./db/rollbacks
 
 $ pg_migrate new my-new-migration
 
+Creating file: db/migrations/1556489937309_my-new-migration.sql
+Creating file: db/rollbacks/1556489937309_my-new-migration.sql
+Creating file: db/tests/1556489937309_my-new-migration.sql
+
 $ pg_migrate migrate
 
 $ pg_migrate rollback my-new-migration
