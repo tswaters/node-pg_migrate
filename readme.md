@@ -86,9 +86,17 @@ Creating file: db/tests/1556489937309_my-new-migration.sql
 
 $ pg_migrate migrate
 
+Migrating 1556489937309 - my-new-migration
+
+$ pg_migrate status
+
+┌───────────────────┬──────────────────────┬──────────────────────────────┐
+│    migration_id   │         name         │         date_migrated        │
+├───────────────────┼──────────────────────┼──────────────────────────────┤
+│   1556489937309   │   my-new-migration   │   2019-04-28T22:21:04.155Z   │
+└───────────────────┴──────────────────────┴──────────────────────────────┘
+
 $ pg_migrate rollback my-new-migration
 
-$ psql -e "select * from public.migrations"
-
-
+Rolling back 1556489937309 - my-new-migration
 ```
