@@ -5,32 +5,22 @@ This is vaporware. I wouldn't recommend using it.
 ## usage
 
 ```
-$ pg_migrate --help
-This is a database migration tool build for postgres. To run effectively, I need
-some environment that you can normally pass to connect to postgres:
-
-https://www.postgresql.org/docs/current/libpq-envars.html
-
-* PGHOST
-* PGDATABASE
-* PGUSER
-* PGPASSWORD
-
-Without any of this, I'll try `postgres://$USER@localhost:5432/$USER`
-
+Migration utility for postgres
 
 Commands:
-  pg_migrate init                output initial configuration to current directory
-  pg_migrate new <name>          create a new migration
-  pg_migrate migrate             migrate any changes to the target db
-  pg_migrate rollback [version]  Rollback a specific migration
-  pg_migrate test                test database connection
+  pg_migrate init               write initial config to current directory
+  pg_migrate new <name>         create a new migration
+  pg_migrate migrate            migrate any changes to the target db
+  pg_migrate rollback [step=1]  Rollback a specific migration
+  pg_migrate test               test database connection
+  pg_migrate status             show current status of migrations
+  pg_migrate drop               rolls back all migrations and drops the tracking
+                                schema
 
 Options:
-  --help       Show help                                               [boolean]
-  --version    Show version number                                     [boolean]
-  --config     JSON file accepting configuration        [default: ".migratorrc"]
-  --log-level    [string] [choices: "debug", "info", "silent"] [default: "info"
+  --help     Show help                                                 [boolean]
+  --version  Show version number                                       [boolean]
+  --config   JSON file accepting configuration          [default: ".migratorrc"]
 ```
 
 ## usage with docker
