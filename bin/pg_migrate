@@ -1,0 +1,57 @@
+#!/usr/bin/env node
+
+'use strict'
+
+const fs = require('fs')
+const yargs = require('yargs')
+const packageJson = require('../package.json')
+const logger = require('../lib/logger')
+const db = require('../lib/db')
+
+const new_migration = require('../commands/new-migration')
+const migrate = require('../commands/migrate')
+const init = require('../commands/init')
+const test = require('../commands/test')
+const rollback = require('../commands/rollback')
+const status = require('../commands/status')
+const drop = require('../commands/drop')
+
+yargs
+  .showHelpOnFail(false)
+  .version(packageJson.version)
+  .usage(packageJson.description)
+  .count('verbose')
+  .alias('v', 'verbose')
+  .option('config', {
+    default: '.migratorrc',
+    describe: 'JSON file accepting configuration',
+    config: true,
+    configParser: configPath => {
+      try {
+        const contents = fs.readFileSync(configPath, 'utf-8')
+        return JSON.parse(contents)
+      } catch (err) {
+        if (err.code !== 'ENOENT') throw err
+      }
+    },
+  })
+  .middleware(async argv => {
+    logger.level = argv.verbose
+  })
+  .middleware(async argv => {
+    db.configure({
+      ...(argv.pgUser && { user: argv.pgUser }),
+      ...(argv.pgHost && { host: argv.pgHost }),
+      ...(argv.pgPassword && { password: argv.pgPassword }),
+      ...(argv.pgDatabase && { database: argv.pgDatabase }),
+      ...(argv.pgPort && { port: argv.pgPort }),
+    })
+  })
+  .command(init)
+  .command(new_migration)
+  .command(migrate)
+  .command(rollback)
+  .command(test)
+  .command(status)
+  .command(drop)
+  .demandCommand(1, 'Command must be provided').argv

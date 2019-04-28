@@ -1,0 +1,37 @@
+{
+  "name": "pg_migrate",
+  "version": "0.0.0",
+  "description": "Migration utility for postgres",
+  "bin": {
+    "pg_migrate": "./bin/pg_migrate"
+  },
+  "scripts": {
+    "pretest": "docker-compose build",
+    "test": "docker-compose run --rm test || docker-compose down"
+  },
+  "author": "Tyler Waters <tyler.waters@gmail.com>",
+  "license": "MIT",
+  "files": [
+    "bin",
+    "commands",
+    "lib",
+    "templates",
+    "LICENSE",
+    "readme.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tswaters/node-pg_migrate.git"
+  },
+  "dependencies": {
+    "pg": "^7.10.0",
+    "prompts": "^2.0.4",
+    "terminal-table": "0.0.12",
+    "yargs": "^13.2.2"
+  },
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "mocha": "^6.1.4",
+    "prettier": "^1.17.0"
+  }
+}

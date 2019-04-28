@@ -1,0 +1,16 @@
+{
+  "name": "acceptance",
+  "version": "1.0.0",
+  "description": "Test runner for pg_migrate",
+  "private": true,
+  "scripts": {
+    "test": "mocha --opts mocha.opts"
+  },
+  "author": "Tyler Waters <tyler.waters@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "mocha": "^6.1.4",
+    "pg": "^7.10.0",
+    "rimraf": "^2.6.3"
+  }
+}

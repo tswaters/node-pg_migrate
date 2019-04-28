@@ -1,0 +1,28 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "node",
+        "request": "launch",
+        "name": "Mocha Tests",
+        "program": "${workspaceFolder}/test/acceptance/node_modules/mocha/bin/_mocha",
+        "cwd": "${workspaceFolder}/test/acceptance",
+        "autoAttachChildProcesses": true,
+        "env": {
+          "PGHOST": "localhost",
+          "PGUSER": "postgres",
+          "PGPASSWORD": "test",
+          "PGDATABASE": "pgmigrate_test",
+          "VSCODE_DEBUGGING": "true"
+        },
+        "args": [
+          "--no-timeouts",
+          "--opts",
+          "${workspaceFolder}/test/acceptance/mocha.opts"
+        ]
+      }
+    ]
+}

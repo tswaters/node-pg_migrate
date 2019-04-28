@@ -1,0 +1,12 @@
+{
+  "first": {
+    "migrations": "CREATE TABLE public.test(id serial primary key, value text);",
+    "rollbacks": "DROP TABLE public.test;",
+    "tests": "DO $$ BEGIN ASSERT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'test'); RAISE EXCEPTION 'Test pass'; EXCEPTION WHEN RAISE_EXCEPTION THEN RETURN; END $$ LANGUAGE PLPGSQL;"
+  },
+  "failing_test": {
+    "migrations": "CREATE TABLE public.test2();",
+    "rollbacks": "DROP TABLE public.test2;",
+    "tests": "DO $$ BEGIN ASSERT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = 'test5'); RAISE EXCEPTION 'Test pass'; EXCEPTION WHEN RAISE_EXCEPTION THEN RETURN; END $$ LANGUAGE PLPGSQL;"
+  }
+}

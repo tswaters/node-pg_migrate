@@ -1,0 +1,21 @@
+version: "2.0"
+services:
+  pg_migrate:
+    build: .
+    image: pg_migrate:latest
+  postgres:
+    build: ./test/postgres
+    environment:
+      - POSTGRES_PASSWORD="test"
+    ports:
+      - "5432:5432"
+  test:
+    build: ./test/acceptance
+    environment:
+      - PGHOST=postgres
+      - PGUSER=postgres
+      - PGPASSWORD=test
+      - PGDATABASE=pgmigrate_test
+    depends_on:
+      - pg_migrate
+      - postgres
